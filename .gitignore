@@ -1,4 +1,3 @@
 dist
 node_modules
 .clasp.json
-yarn.lock
