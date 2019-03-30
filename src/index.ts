@@ -1,6 +1,6 @@
 import Slides = GoogleAppsScript.Slides.SlidesApp;
 import Sheet = GoogleAppsScript.Spreadsheet.SpreadsheetApp;
-import { chunk } from './util';
+import { chunk, recordToUser } from './util';
 
 declare var global: any;
 
@@ -28,6 +28,7 @@ global.sheet = (sheetId: string): void => {
     .filter((_x, idx) => {
       return idx != 0;
     });
+  console.log(vals);
   vals.forEach(elem => {
     console.log(elem[0]);
     console.log(elem[1]);
@@ -42,16 +43,15 @@ global.createNamePlates = (sheetId: string, presentationId: string): void => {
     return idx == 0;
   });
   const sheet = sApp.getActiveSheet();
-  const tmpVals = sheet
-    .getDataRange()
-    .getValues()
-    .filter((_x, idx) => {
-      return idx != 0;
-    })
-    .map(x => {
-      return [x[0].toString(), x[1].toString(), x[2].toString(), x[3].toString()];
-    });
-  const usersRecord = chunk(tmpVals, 2);
+  const usersRecords = recordToUser(
+    sheet
+      .getDataRange()
+      .getValues()
+      .filter((_x, idx) => {
+        return idx != 0;
+      })
+  );
+  const usersRecord = chunk(usersRecords, 2);
   console.log(usersRecord);
   usersRecord.forEach((users, idx) => {
     console.log(users);
@@ -66,23 +66,23 @@ global.createNamePlates = (sheetId: string, presentationId: string): void => {
       const txt = elem.asShape().getText();
       console.log(txt.asString());
       if (txt.asString() == '{{name1}}\n') {
-        txt.setText(user1[0].toString() + user1[1].toString());
+        txt.setText(user1.lastName + ' ' + user1.firstName);
       }
       if (txt.asString() == '{{company1}}\n') {
-        txt.setText(user1[2].toString());
+        txt.setText(user1.company);
       }
       if (txt.asString() == '{{job1}}\n') {
-        txt.setText(user1[3].toString());
+        txt.setText(user1.job);
       }
       if (user2 != undefined) {
         if (txt.asString() == '{{name2}}\n') {
-          txt.setText(user2[0].toString() + user2[1].toString());
+          txt.setText(user2.lastName + user2.firstName);
         }
         if (txt.asString() == '{{company2}}\n') {
-          txt.setText(user2[2].toString());
+          txt.setText(user2.company);
         }
         if (txt.asString() == '{{job2}}\n') {
-          txt.setText(user2[3].toString());
+          txt.setText(user2.job);
         }
       }
     });
