@@ -1,6 +1,6 @@
 import Slides = GoogleAppsScript.Slides.SlidesApp;
 import Sheet = GoogleAppsScript.Spreadsheet.SpreadsheetApp;
-import { chunk, recordToUser } from './util';
+import { chunk, recordToUser, User, writeToElement } from './util';
 
 declare var global: any;
 
@@ -52,39 +52,17 @@ global.createNamePlates = (sheetId: string, presentationId: string): void => {
       })
   );
   const usersRecord = chunk(usersRecords, 2);
-  console.log(usersRecord);
   usersRecord.forEach((users, idx) => {
-    console.log(users);
     const s = pTmpl[0].duplicate();
-    console.log(s.getObjectId());
     const user1 = users[0];
-    let user2;
-    if (users.length == 2) {
-      user2 = users[1];
-    }
+    const user2 =
+      users.length == 2
+        ? users[1]
+        : { firstName: 'none', lastName: 'none', company: 'none', job: 'none' };
+
     s.getPageElements().forEach(elem => {
       const txt = elem.asShape().getText();
-      console.log(txt.asString());
-      if (txt.asString() == '{{name1}}\n') {
-        txt.setText(user1.lastName + ' ' + user1.firstName);
-      }
-      if (txt.asString() == '{{company1}}\n') {
-        txt.setText(user1.company);
-      }
-      if (txt.asString() == '{{job1}}\n') {
-        txt.setText(user1.job);
-      }
-      if (user2 != undefined) {
-        if (txt.asString() == '{{name2}}\n') {
-          txt.setText(user2.lastName + user2.firstName);
-        }
-        if (txt.asString() == '{{company2}}\n') {
-          txt.setText(user2.company);
-        }
-        if (txt.asString() == '{{job2}}\n') {
-          txt.setText(user2.job);
-        }
-      }
+      writeToElement(txt, user1, user2);
     });
   });
 };
