@@ -1,16 +1,26 @@
-import { getDayFormat } from './util';
+import { chunk } from './util';
 jest.unmock('./util');
 
 describe('util', () => {
-  describe('getDayFormat()', () => {
-    it('no parameter', () => {
-      const now = new Date();
-      const expected = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-      expect(getDayFormat()).toBe(expected);
+  describe('chunk()', () => {
+    it('even', () => {
+      const d = [
+        ['akira', 'chiku', 'kanmu', 'coo'],
+        ['masahiko', 'okada', 'kanmu', 'eng'],
+        ['hiroaki', 'sano', 'kanmu', 'eng'],
+        ['yuki', 'ito', 'kanmu', 'eng']
+      ];
+      const a = chunk(d, 2);
+      console.log(a);
     });
-    it('with date parameter', () => {
-      const date = new Date(2018, 2, 9);
-      expect(getDayFormat(date)).toBe('2018-3-9');
+    it('odd', () => {
+      const d = [
+        ['akira', 'chiku', 'kanmu', 'coo'],
+        ['masahiko', 'okada', 'kanmu', 'eng'],
+        ['hiroaki', 'sano', 'kanmu', 'eng']
+      ];
+      const a = chunk(d, 2);
+      console.log(a);
     });
   });
 });
