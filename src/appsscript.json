@@ -1,6 +1,13 @@
 {
-  "timeZone": "Asia/Tokyo",
+  "timeZone": "America/New_York",
   "dependencies": {
+  },
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/presentations"
+  ],
+  "executionApi": {
+    "access": "ANYONE"
   },
   "exceptionLogging": "STACKDRIVER"
 }
