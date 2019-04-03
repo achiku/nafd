@@ -1,6 +1,6 @@
 {
-  "name": "gas-clasp-starter",
-  "version": "1.2.1",
+  "name": "nafd",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,19 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/howdy39/gas-clasp-starter.git"
+    "url": "git+https://github.com/achiku/nafd.git"
   },
   "keywords": [
     "gas",
     "google-apps-script",
     "clasp"
   ],
-  "author": "howdy39",
+  "author": "achiku",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/howdy39/gas-clasp-starter/issues"
+    "url": "https://github.com/achiku/nafd/issues"
   },
-  "homepage": "https://github.com/howdy39/gas-clasp-starter#readme",
+  "homepage": "https://github.com/achiku/nafd#readme",
   "devDependencies": {
     "@types/google-apps-script": "0.0.40",
     "@types/jest": "24.0.11",
